@@ -2,11 +2,19 @@ from player_hand import PlayerHand
 from input_error import InputError
 
 
+def ask_name() -> str:
+    return input('Enter your name: ').strip()
+
+
+def greet_player(name: str) -> None:
+    print(f'Hello, {name}')
+
+
 def choose_option() -> str:
     while True:
         try:
             option = input().strip()
-            if option not in (PlayerHand.ROCK, PlayerHand.PAPER, PlayerHand.SCISSORS, '!exit'):
+            if option not in (PlayerHand.ROCK, PlayerHand.PAPER, PlayerHand.SCISSORS, '!exit', '!rating'):
                 raise InputError
             break
         except InputError as error:
@@ -26,3 +34,7 @@ def print_winner(option: str, shape: str) -> None:
 
 def print_exit() -> None:
     print('Bye!')
+
+
+def print_rating(score: int) -> None:
+    print(f'Your rating: {score}')

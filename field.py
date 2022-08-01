@@ -2,18 +2,20 @@ from player_hand import PlayerHand
 
 
 class Field:
-    def __init__(self, player_shape: str, opponent_shape: str):
-        self.player_shape = player_shape
-        self.opponent_shape = opponent_shape
+    def __init__(self, player_option: str, opponent_option: str):
+        self.player_option = player_option
+        self.opponent_option = opponent_option
 
-    def define_result(self) -> str:
-        if self.player_shape == PlayerHand.ROCK and self.opponent_shape == PlayerHand.SCISSORS or\
-                (self.player_shape == PlayerHand.PAPER and self.opponent_shape == PlayerHand.ROCK) or\
-                (self.player_shape == PlayerHand.SCISSORS and self.opponent_shape == PlayerHand.PAPER):
+    def define_result(self, player: PlayerHand) -> str:
+        if self.player_option == PlayerHand.ROCK and self.opponent_option == PlayerHand.SCISSORS or\
+                (self.player_option == PlayerHand.PAPER and self.opponent_option == PlayerHand.ROCK) or\
+                (self.player_option == PlayerHand.SCISSORS and self.opponent_option == PlayerHand.PAPER):
+            player.score += 100
             return PlayerHand.WIN
-        elif self.player_shape == PlayerHand.ROCK and self.opponent_shape == PlayerHand.ROCK or\
-                (self.player_shape == PlayerHand.PAPER and self.opponent_shape == PlayerHand.PAPER) or\
-                (self.player_shape == PlayerHand.SCISSORS and self.opponent_shape == PlayerHand.SCISSORS):
+        elif self.player_option == PlayerHand.ROCK and self.opponent_option == PlayerHand.ROCK or\
+                (self.player_option == PlayerHand.PAPER and self.opponent_option == PlayerHand.PAPER) or\
+                (self.player_option == PlayerHand.SCISSORS and self.opponent_option == PlayerHand.SCISSORS):
+            player.score += 50
             return PlayerHand.DRAW
         else:
             return PlayerHand.LOSS

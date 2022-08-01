@@ -3,16 +3,30 @@ from player_hand import PlayerHand
 from field import Field
 
 
-while True:
-    player = PlayerHand()
-    player_shape = player.choose_option_player()
+player_name = ui.ask_name()
+ui.greet_player(player_name)
+player = PlayerHand()
+opponent = PlayerHand()
 
-    if player_shape == '!exit':
+with open('rating.txt', 'r') as file:
+    if player_name in file.read():
+        player.score = 350
+        file.close()
+    else:
+        player.score = 0
+
+while True:
+    player_option = player.choose_option_player()
+
+    if player_option == '!exit':
         ui.print_exit()
         exit()
 
-    opponent = PlayerHand()
-    opponent_shape = opponent.choose_option_opponent()
-    field = Field(player_shape, opponent_shape)
-    result = field.define_result()
-    ui.print_winner(result, opponent_shape)
+    if player_option == '!rating':
+        ui.print_rating(player.score)
+        continue
+
+    opponent_option = opponent.choose_option_opponent()
+    field = Field(player_option, opponent_option)
+    result = field.define_result(player)
+    ui.print_winner(result, opponent_option)
