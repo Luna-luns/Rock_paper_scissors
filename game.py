@@ -5,8 +5,9 @@ from field import Field
 
 player_name = ui.ask_name()
 ui.greet_player(player_name)
-player = PlayerHand()
-opponent = PlayerHand()
+options = ui.get_options().replace(',', ' ').split()
+player = PlayerHand(options)
+opponent = PlayerHand(options)
 
 with open('rating.txt', 'r') as file:
     if player_name in file.read():
@@ -14,6 +15,8 @@ with open('rating.txt', 'r') as file:
         file.close()
     else:
         player.score = 0
+
+ui.print_game_start()
 
 while True:
     player_option = player.choose_option_player()
